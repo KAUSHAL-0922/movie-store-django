@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<!-- Main part-->
+    <div class="container pd-3">           
+        <br>
+
+        <h6>Join our mailing list:</h6>
+        <form action="{% url 'signup' %}">
+
+            <div class="mb-3">
+                <label for="email" class="form-label"> Enter your email:</label>
+                <input type="email" class="form-control" name="email" />
+            </div>
+
+            <button type="submit" class="btn btn-primary"> Sign Up </button>
+
+        </form> 
+   
+     <h2></h2>
+    </div>
+
+{% endblock content %}

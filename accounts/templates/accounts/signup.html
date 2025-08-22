@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3 mt-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow p-3 mb-4 rounded">
+          <div class="card-body">
+            <h2>Sign Up</h2>
+            <hr />
+
+            <form method="POST" novalidate>
+              {% csrf_token %}
+
+              {# Show non-field errors (general form errors) #}
+              {% if template_data.form.non_field_errors %}
+                <div class="alert alert-danger">
+                  {{ template_data.form.non_field_errors }}
+                </div>
+              {% endif %}
+
+              {# Render each field with its errors and help text #}
+              {% for field in template_data.form %}
+                <div class="mb-3">
+                  {{ field.label_tag }}
+                  {{ field }}
+
+                  {# Show password requirements under password confirmation field #}
+                  {% if field.name == "password2" %}
+                    <small class="form-text text-muted">
+                      Password must be at least 8 characters, cannot be too common, and cannot be entirely numeric.
+                    </small>
+                  {% endif %}
+
+                  {# Show field errors #}
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                      <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              {% endfor %}
+
+              <button type="submit" class="btn bg-dark text-white">Sign Up</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% block content %}
+<div class="p-3 mt-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow p-3 mb-4 rounded">
+          <div class="card-body">
+            <h2>Sign Up</h2>
+            <hr />
+            <form method="POST">
+              {% csrf_token %}
+              {{ template_data.form.as_p }}
+              <button type="submit"
+                class="btn bg-dark text-white">Sign Up
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %} {% endcomment %}
