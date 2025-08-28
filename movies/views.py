@@ -56,9 +56,4 @@ def delete_review(request, id, review_id):
     review.delete()
     return redirect('movies.detail', id=id)
 
-from django.http import HttpResponse
-from django.core.management import call_command
 
-def run_migrations(request):
-    call_command('migrate', interactive=False)
-    return HttpResponse("Migrations applied successfully.")
