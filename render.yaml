@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: moviesstore-app
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn moviesstore.asgi:application --host 0.0.0.0 --port 10000"
+    preDeployCommand: |
+      python manage.py migrate
+      python manage.py collectstatic --noinput
+    envVars:
+      - key: DATABASE_URL
+        sync: false  
+      - key: SECRET_KEY
+        sync: false
+      - key: DEBUG
+        sync: false
+      - key: ALLOWED_HOSTS
+        sync: false
