@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,22 +81,12 @@ WSGI_APPLICATION = 'moviesstore.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',  
+        conn_max_age=600,  
+        ssl_require=True   
+    )
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'moviesstore',           # your database name
-#         'USER': 'root',             # your MySQL username
-#         'PASSWORD': 'root123',        # your MySQL user password
-#         'HOST': 'localhost',               # usually localhost
-#         'PORT': '3306',                    # default MySQL port
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
