@@ -57,3 +57,12 @@ def delete_review(request, id, review_id):
     return redirect('movies.detail', id=id)
 
 
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+
+def create_superuser_view(request):
+    User = get_user_model()
+    if not User.objects.filter(username="kaushal").exists():
+        User.objects.create_superuser("kaushal", "kaushal@gmail.com", "kaushal")
+        return HttpResponse("Superuser created.")
+    return HttpResponse("Superuser already exists.")
